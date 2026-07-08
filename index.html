@@ -73,4 +73,13 @@
         function addTask() {
             const name = document.getElementById("task-name").value.trim();
             if (name) {
-                const list = document.getElementBy
+                const list = document.getElementById("tasks-list");
+                list.innerHTML += `<div class="card">📋 ${name}</div>`;
+                document.getElementById("task-name").value = "";
+            }
+        }
+
+        showSection('clients');
+    </script>
+</body>
+</html>
