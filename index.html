@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClientFlow - CRM для фрилансеров</title>
+    <title>ClientFlow - CRM</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
         .header { background: #007bff; color: white; padding: 20px; text-align: center; }
@@ -13,6 +13,7 @@
         .card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         input { padding: 10px; width: 70%; }
         button { padding: 10px 20px; margin: 5px; }
+        .stats { font-size: 18px; font-weight: bold; color: #007bff; }
     </style>
 </head>
 <body>
@@ -44,42 +45,80 @@
             <button onclick="addTask()">Добавить</button>
             <div id="tasks-list"></div>
         </div>
+        <div class="stats" id="total-stats">Всего клиентов: 0 | Проектов: 0 | Задач: 0</div>
     </div>
 
     <script>
+        let clients = JSON.parse(localStorage.getItem("clients")) || [];
+        let projects = JSON.parse(localStorage.getItem("projects")) || [];
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
         function showSection(section) {
             document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
             document.getElementById(section).style.display = 'block';
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById("total-stats").textContent = `Клиентов: ${clients.length} | Проектов: ${projects.length} | Задач: ${tasks.length}`;
         }
 
         function addClient() {
             const name = document.getElementById("client-name").value.trim();
             if (name) {
-                const list = document.getElementById("clients-list");
-                list.innerHTML += `<div class="card">👤 ${name}</div>`;
+                clients.push(name);
+                localStorage.setItem("clients", JSON.stringify(clients));
+                renderClients();
                 document.getElementById("client-name").value = "";
+                updateStats();
             }
+        }
+
+        function renderClients() {
+            const list = document.getElementById("clients-list");
+            list.innerHTML = clients.map(c => `<div class="card">👤 ${c}</div>`).join("");
         }
 
         function addProject() {
             const name = document.getElementById("project-name").value.trim();
             if (name) {
-                const list = document.getElementById("projects-list");
-                list.innerHTML += `<div class="card">📁 ${name}</div>`;
+                projects.push(name);
+                localStorage.setItem("projects", JSON.stringify(projects));
+                renderProjects();
                 document.getElementById("project-name").value = "";
+                updateStats();
             }
+        }
+
+        function renderProjects() {
+            const list = document.getElementById("projects-list");
+            list.innerHTML
+
+
+projects.map(p => `<div class="card">📁 ${p}</div>`).join("");
         }
 
         function addTask() {
             const name = document.getElementById("task-name").value.trim();
             if (name) {
-                const list = document.getElementById("tasks-list");
-                list.innerHTML += `<div class="card">📋 ${name}</div>`;
+                tasks.push(name);
+                localStorage.setItem("tasks", JSON.stringify(tasks));
+                renderTasks();
                 document.getElementById("task-name").value = "";
+                updateStats();
             }
+        }
+
+        function renderTasks() {
+            const list = document.getElementById("tasks-list");
+            list.innerHTML = tasks.map(t => `<div class="card">📋 ${t}</div>`).join("");
         }
 
         showSection('clients');
     </script>
 </body>
-</html>
+</html> =
+
+
+
+
