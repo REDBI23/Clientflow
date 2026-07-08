@@ -3,50 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClientFlow</title>
+    <title>ClientFlow - CRM для фрилансеров</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h1 { color: #007bff; }
-        button { padding: 10px; margin: 5px; }
-        .card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+        .header { background: #007bff; color: white; padding: 20px; text-align: center; }
+        .nav { background: #333; color: white; padding: 10px; text-align: center; }
+        .nav button { margin: 0 10px; padding: 10px 20px; background: #555; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .content { padding: 20px; max-width: 800px; margin: 0 auto; }
+        .card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input { padding: 10px; width: 70%; }
+        button { padding: 10px 20px; margin: 5px; }
     </style>
 </head>
 <body>
-    <h1>ClientFlow - CRM</h1>
-    
-    <h2>Клиенты</h2>
-    <input id="client" placeholder="Имя клиента">
-    <button onclick="addClient()">Добавить</button>
-    <div id="client-list"></div>
-
-    <h2>Проекты</h2>
-    <input id="project" placeholder="Название проекта">
-    <button onclick="addProject()">Добавить</button>
-    <div id="project-list"></div>
-
-    <h2>Задачи</h2>
-    <input id="task" placeholder="Название задачи">
-    <button onclick="addTask()">Добавить</button>
-    <div id="task-list"></div>
+    <div class="header">
+        <h1>ClientFlow</h1>
+        <p>CRM для фрилансеров</p>
+    </div>
+    <div class="nav">
+        <button onclick="showSection('clients')">Клиенты</button>
+        <button onclick="showSection('projects')">Проекты</button>
+        <button onclick="showSection('tasks')">Задачи</button>
+    </div>
+    <div class="content">
+        <div id="clients" class="section">
+            <h2>Клиенты</h2>
+            <input type="text" id="client-name" placeholder="Имя клиента">
+            <button onclick="addClient()">Добавить</button>
+            <div id="clients-list"></div>
+        </div>
+        <div id="projects" class="section" style="display:none;">
+            <h2>Проекты</h2>
+            <input type="text" id="project-name" placeholder="Название проекта">
+            <button onclick="addProject()">Добавить</button>
+            <div id="projects-list"></div>
+        </div>
+        <div id="tasks" class="section" style="display:none;">
+            <h2>Задачи</h2>
+            <input type="text" id="task-name" placeholder="Название задачи">
+            <button onclick="addTask()">Добавить задачу</button>
+            <div id="tasks-list"></div>
+        </div>
+    </div>
 
     <script>
+        let clients = [];
+        let projects = [];
+        let tasks = [];
+
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            document.getElementById(section).style.display = 'block';
+        }
+
         function addClient() {
-            const name = document.getElementById("client").value;
+            const name = document.getElementById("client-name").value.trim();
             if (name) {
-                document.getElementById("client-list").innerHTML += `<div class="card">👤 ${name}</div>`;
-                document.getElementById("client").value = "";
+                clients.push(name);
+                renderClients();
+                document.getElementById("client-name").value = "";
             }
+        }
+
+        function renderClients() {
+            const list = document.getElementById("clients-list");
+            list.innerHTML = clients.map(c => `<div class="card">👤 ${c}</div>`).join("");
         }
 
         function addProject() {
-            const name = document.getElementById("project").value;
+            const name = document.getElementById("project-name").value.trim();
             if (name) {
-                document.getElementById("project-list").innerHTML += `<div class="card">📁 ${name}</div>`;
-                document.getElementById("project").value = "";
+                projects.push(name);
+                renderProjects();
+                document.getElementById("project-name").value = "";
             }
         }
 
+        function renderProjects() {
+            const list = document.getElementById("projects-list");
+            list.innerHTML = projects.map(p => `<div class="card">📁 ${p}</div>`).join("");
+        }
+
         function addTask() {
-            const name = document.getElementById("task").value;
+            const name = document.getElementById("task-name").value.trim();
             if (name) {
-                document.getElementById("task-list").innerHTML +=
+                tasks.push(name);
+                renderTasks();
+                document.getElementById("task-name").value = "";
+            }
+        }
+
+        function renderTasks() {
+            const list = document.getElementById("tasks-list");
+            list.innerHTML = tasks.map(t => `<div class="card">📋 ${t}</div>`).join("");
+        }
+
+        showSection('clients');
+    </script>
+</body>
+</html>
