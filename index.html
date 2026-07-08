@@ -3,48 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClientFlow</title>
+    <title>ClientFlow - CRM</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background: #f0f0f0; }
-        h1 { color: #007bff; }
-        button { padding: 10px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 5px; }
-        input { padding: 10px; width: 300px; }
-        .card { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+        .header { background: #007bff; color: white; padding: 20px; text-align: center; }
+        .nav { background: #333; color: white; padding: 10px; text-align: center; }
+        .nav button { margin: 0 10px; padding: 10px 20px; background: #555; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .content { padding: 20px; max-width: 800px; margin: 0 auto; }
+        .card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input { padding: 10px; width: 70%; }
+        button { padding: 10px 20px; margin: 5px; }
+        .stats { background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 15px 0; font-weight: bold; }
     </style>
 </head>
 <body>
-    <h1>ClientFlow</h1>
-    
-    <h2>Клиенты</h2>
-    <input id="client" placeholder="Имя клиента">
-    <button onclick="addClient()">Добавить</button>
-    <div id="client-list"></div>
+    <div class="header">
+        <h1>ClientFlow</h1>
+        <p>CRM для фрилансеров</p>
+    </div>
+    <div class="nav">
+        <button onclick="showSection('clients')">Клиенты</button>
+        <button onclick="showSection('projects')">Проекты</button>
+        <button onclick="showSection('tasks')">Задачи</button>
+    </div>
+    <div class="content">
+        <div class="stats" id="stats">Клиентов: 0 | Проектов: 0 | Задач: 0</div>
+        
+        <div id="clients" class="section">
+            <h2>Клиенты</h2>
+            <input type="text" id="client-name" placeholder="Имя клиента">
+            <button onclick="addClient()">Добавить</button>
+            <div id="clients-list"></div>
+        </div>
+        <div id="projects" class="section" style="display:none;">
+            <h2>Проекты</h2>
+            <input type="text" id="project-name" placeholder="Название проекта">
+            <button onclick="addProject()">Добавить</button>
+            <div id="projects-list"></div>
+        </div>
+        <div id="tasks" class="section" style="display:none;">
+            <h2>Задачи</h2>
+            <input type="text" id="task-name" placeholder="Название задачи">
+            <button onclick="addTask()">Добавить</button>
+            <div id="tasks-list"></div>
+        </div>
+    </div>
 
     <script>
         let clients = JSON.parse(localStorage.getItem("clients")) || [];
+        let projects = JSON.parse(localStorage.getItem("projects")) || [];
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-        function render() {
-            document.getElementById("client-list").innerHTML = clients.map(c => `<div class="card">👤 ${c}</div>`).join("");
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            document.getElementById(section).style.display = 'block';
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById("stats").innerHTML = `Клиентов: ${clients.length} | Проектов: ${projects.length} | Задач: ${tasks.length}`;
         }
 
         function addClient() {
-            const name = document.getElementById("client").value.trim();
+            const name = document.getElementById("client-name").value.trim();
             if (name) {
                 clients.push(name);
                 localStorage.setItem("clients", JSON.stringify(clients));
-                render();
-                document.getElementById("client").value = "";
+                renderClients();
+                document.getElementById("client-name").value = "";
+                updateStats();
             }
         }
 
-        render();
-    </script>
-</body>
-</html>
+        function renderClients() {
+            const list = document.getElementById("clients-list");
+            list.innerHTML = clients.map(c => `<div class="card">👤 ${c}</div>`).join("");
+        }
 
+        function addProject() {
+            const name = document.getElementById("project-name").value.trim();
+            if (name) {
+                projects.push(name);
+                localStorage.setItem("projects", JSON.stringify(projects));
+                renderProjects();
+                document.getElementById("project-name").value = "";
+                updateStats();
+            }
+        }
 
-
-
-
-
-        
+        function renderProjects() {
+            const list = document.getElementById("projects-list")
