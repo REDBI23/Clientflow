@@ -13,7 +13,6 @@
         .card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         input { padding: 10px; width: 70%; }
         button { padding: 10px 20px; margin: 5px; }
-        .stats { background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 15px 0; font-weight: bold; text-align: center; }
     </style>
 </head>
 <body>
@@ -27,8 +26,6 @@
         <button onclick="showSection('tasks')">Задачи</button>
     </div>
     <div class="content">
-        <div class="stats" id="stats">Клиентов: 0 | Проектов: 0 | Задач: 0</div>
-        
         <div id="clients" class="section">
             <h2>Клиенты</h2>
             <input type="text" id="client-name" placeholder="Имя клиента">
@@ -50,18 +47,13 @@
     </div>
 
     <script>
-        let clients = JSON.parse(localStorage.getItem("clients")) || [];
-        let projects = JSON.parse(localStorage.getItem("projects")) || [];
-        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        let clients = [];
+        let projects = [];
+        let tasks = [];
 
         function showSection(section) {
             document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
             document.getElementById(section).style.display = 'block';
-            updateStats();
-        }
-
-        function updateStats() {
-            document.getElementById("stats").innerHTML = `Клиентов: ${clients.length} | Проектов: ${projects.length} | Задач: ${tasks.length}`;
         }
 
         function addClient() {
@@ -71,7 +63,6 @@
                 localStorage.setItem("clients", JSON.stringify(clients));
                 renderClients();
                 document.getElementById("client-name").value = "";
-                updateStats();
             }
         }
 
@@ -87,15 +78,11 @@
                 localStorage.setItem("projects", JSON.stringify(projects));
                 renderProjects();
                 document.getElementById("project-name").value = "";
-                updateStats();
             }
         }
 
         function renderProjects() {
-            const list = document
-
-
-d("projects-list");
+            const list = document.getElementById("projects-list");
             list.innerHTML = projects.map(p => `<div class="card">📁 ${p}</div>`).join("");
         }
 
@@ -106,15 +93,20 @@ d("projects-list");
                 localStorage.setItem("tasks", JSON.stringify(tasks));
                 renderTasks();
                 document.getElementById("task-name").value = "";
-                updateStats();
             }
         }
 
         function renderTasks() {
             const list = document.getElementById("tasks-list");
-            list.innerHTML = tasks.map(t => `<div class="card">📋 ${t}</div>`).join("");
+            list.innerHTML = tasks.map(t => `<div class="card
+
+
+${t}</div>`).join("");
         }
 
         showSection('clients');
     </script>
 </body>
+</html>">📋
+
+
