@@ -41,16 +41,12 @@
         <div id="tasks" class="section" style="display:none;">
             <h2>Задачи</h2>
             <input type="text" id="task-name" placeholder="Название задачи">
-            <button onclick="addTask()">Добавить задачу</button>
+            <button onclick="addTask()">Добавить</button>
             <div id="tasks-list"></div>
         </div>
     </div>
 
     <script>
-        let clients = [];
-        let projects = [];
-        let tasks = [];
-
         function showSection(section) {
             document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
             document.getElementById(section).style.display = 'block';
@@ -59,46 +55,22 @@
         function addClient() {
             const name = document.getElementById("client-name").value.trim();
             if (name) {
-                clients.push(name);
-                renderClients();
+                const list = document.getElementById("clients-list");
+                list.innerHTML += `<div class="card">👤 ${name}</div>`;
                 document.getElementById("client-name").value = "";
             }
-        }
-
-        function renderClients() {
-            const list = document.getElementById("clients-list");
-            list.innerHTML = clients.map(c => `<div class="card">👤 ${c}</div>`).join("");
         }
 
         function addProject() {
             const name = document.getElementById("project-name").value.trim();
             if (name) {
-                projects.push(name);
-                renderProjects();
+                const list = document.getElementById("projects-list");
+                list.innerHTML += `<div class="card">📁 ${name}</div>`;
                 document.getElementById("project-name").value = "";
             }
-        }
-
-        function renderProjects() {
-            const list = document.getElementById("projects-list");
-            list.innerHTML = projects.map(p => `<div class="card">📁 ${p}</div>`).join("");
         }
 
         function addTask() {
             const name = document.getElementById("task-name").value.trim();
             if (name) {
-                tasks.push(name);
-                renderTasks();
-                document.getElementById("task-name").value = "";
-            }
-        }
-
-        function renderTasks() {
-            const list = document.getElementById("tasks-list");
-            list.innerHTML = tasks.map(t => `<div class="card">📋 ${t}</div>`).join("");
-        }
-
-        showSection('clients');
-    </script>
-</body>
-</html>
+                const list = document.getElementBy
