@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,6 @@
         .card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         input { padding: 10px; width: 70%; }
         button { padding: 10px 20px; margin: 5px; }
-        .stats { font-size: 18px; font-weight: bold; color: #007bff; }
     </style>
 </head>
 <body>
@@ -45,7 +44,6 @@
             <button onclick="addTask()">Добавить</button>
             <div id="tasks-list"></div>
         </div>
-        <div class="stats" id="total-stats">Всего клиентов: 0 | Проектов: 0 | Задач: 0</div>
     </div>
 
     <script>
@@ -56,11 +54,13 @@
         function showSection(section) {
             document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
             document.getElementById(section).style.display = 'block';
-            updateStats();
+            renderAll();
         }
 
-        function updateStats() {
-            document.getElementById("total-stats").textContent = `Клиентов: ${clients.length} | Проектов: ${projects.length} | Задач: ${tasks.length}`;
+        function renderAll() {
+            renderClients();
+            renderProjects();
+            renderTasks();
         }
 
         function addClient() {
@@ -70,7 +70,6 @@
                 localStorage.setItem("clients", JSON.stringify(clients));
                 renderClients();
                 document.getElementById("client-name").value = "";
-                updateStats();
             }
         }
 
@@ -86,26 +85,24 @@
                 localStorage.setItem("projects", JSON.stringify(projects));
                 renderProjects();
                 document.getElementById("project-name").value = "";
-                updateStats();
             }
         }
 
         function renderProjects() {
             const list = document.getElementById("projects-list");
-            list.innerHTML
-
-
-projects.map(p => `<div class="card">📁 ${p}</div>`).join("");
+            list.innerHTML = projects.map(p => `<div class="card">📁 ${p}</div>`).join("");
         }
 
         function addTask() {
             const name = document.getElementById("task-name").value.trim();
             if (name) {
                 tasks.push(name);
-                localStorage.setItem("tasks", JSON.stringify(tasks));
+                localStorage.setItem("tasks", JSON
+
+
+y(tasks));
                 renderTasks();
                 document.getElementById("task-name").value = "";
-                updateStats();
             }
         }
 
@@ -117,7 +114,7 @@ projects.map(p => `<div class="card">📁 ${p}</div>`).join("");
         showSection('clients');
     </script>
 </body>
-</html> =
+</html>.stringif
 
 
 
