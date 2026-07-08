@@ -8,9 +8,10 @@
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
         .header { background: #007bff; color: white; padding: 20px; text-align: center; }
         .nav { background: #333; color: white; padding: 10px; text-align: center; }
-        .nav button { margin: 0 10px; padding: 10px 20px; background: #555; color: white; border: none; border-radius: 5px; }
+        .nav button { margin: 0 10px; padding: 10px 20px; background: #555; color: white; border: none; border-radius: 5px; cursor: pointer; }
         .content { padding: 20px; max-width: 800px; margin: 0 auto; }
         .card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input, button { padding: 10px; margin: 5px; }
     </style>
 </head>
 <body>
@@ -26,12 +27,36 @@
     <div class="content">
         <div id="clients" class="section">
             <h2>Клиенты</h2>
-            <div class="card">Список клиентов (в следующих версиях)</div>
+            <input type="text" id="client-name" placeholder="Имя клиента">
+            <button onclick="addClient()">Добавить клиента</button>
+            <div id="clients-list"></div>
         </div>
         <div id="projects" class="section" style="display:none;">
             <h2>Проекты</h2>
-            <div class="card">Список проектов</div>
+            <div class="card">Список проектов (в разработке)</div>
         </div>
         <div id="tasks" class="section" style="display:none;">
             <h2>Задачи</h2>
-            <div
+            <div class="card">Список задач (в разработке)</div>
+        </div>
+    </div>
+
+    <script>
+        let clients = [];
+
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            document.getElementById(section).style.display = 'block';
+        }
+
+        function addClient() {
+            const name = document.getElementById("client-name").value;
+            if (name) {
+                clients.push(name);
+                renderClients();
+                document.getElementById("client-name").value = "";
+            }
+        }
+
+        function renderClients() {
+            const list = document.getElement
