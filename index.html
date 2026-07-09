@@ -10,13 +10,10 @@
         .nav { background: #333; color: white; padding: 10px; text-align: center; }
         .nav button { margin: 0 10px; padding: 10px 20px; background: #555; color: white; border: none; border-radius: 5px; cursor: pointer; }
         .content { padding: 20px; max-width: 800px; margin: 0 auto; }
-        .card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
         input { padding: 10px; width: 70%; }
         button { padding: 10px 20px; margin: 5px; }
         .delete-btn { background: #dc3545; color: white; }
-        .status { padding: 5px 12px; border-radius: 20px; font-size: 14px; margin-left: 10px; }
-        .status-work { background: #fef3c7; color: #d97706; }
-        .status-done { background: #d1fae5; color: #10b981; }
         .stats { background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 15px 0; font-weight: bold; text-align: center; }
     </style>
 </head>
@@ -86,16 +83,16 @@
 
         function deleteClient(i) {
             clients.splice(i, 1);
-            localStorage.setItem("clients", JSON.stringify
-
-
-nts));
+            localStorage.setItem("clients", JSON.stringify(clients));
             renderClients();
             updateStats();
         }
 
         function addProject() {
-            const name = document.getElementById("project-name").value.trim();
+            const name = document
+
+
+Id("project-name").value.trim();
             if (name) {
                 projects.push(name);
                 localStorage.setItem("projects", JSON.stringify(projects));
@@ -107,7 +104,7 @@ nts));
 
         function renderProjects() {
             const list = document.getElementById("projects-list");
-            list.innerHTML = projects.map((p, i) => `<div class="card">📁 ${p} <button onclick="toggleStatus(${i}, 'project')">Статус</button> <button class="delete-btn" onclick="deleteProject(${i})">Удалить</button></div>`).join("");
+            list.innerHTML = projects.map((p, i) => `<div class="card">📁 ${p} <button class="delete-btn" onclick="deleteProject(${i})">Удалить</button></div>`).join("");
         }
 
         function deleteProject(i) {
@@ -140,14 +137,10 @@ nts));
             updateStats();
         }
 
-        function toggleStatus(i, type) {
-            alert('Статус изменён (В работе / Завершён)');
-        }
-
         showSection('clients');
     </script>
 </body>
-</html>(clie
+</html>
 
 
 
