@@ -14,7 +14,7 @@
         input { padding: 10px; width: 70%; }
         button { padding: 10px 20px; margin: 5px; }
         .delete-btn { background: #dc3545; color: white; }
-        .status { padding: 5px 12px; border-radius: 20px; font-size: 14px; }
+        .status { padding: 5px 12px; border-radius: 20px; font-size: 14px; margin-left: 10px; }
         .status-work { background: #fef3c7; color: #d97706; }
         .status-done { background: #d1fae5; color: #10b981; }
     </style>
@@ -92,10 +92,9 @@
         }
 
         function renderProjects() {
-            const list =
 
 
-cument.getElementById("projects-list");
+const list = document.getElementById("projects-list");
             list.innerHTML = projects.map((p, i) => `<div class="card">📁 ${p} <button class="delete-btn" onclick="deleteProject(${i})">Удалить</button></div>`).join("");
         }
 
@@ -128,20 +127,8 @@ cument.getElementById("projects-list");
 
         showSection('clients');
     </script>
-    <script>
-    // Добавь это в конец скрипта
-
-    function toggleStatus(i, type) {
-        if (type === 'project') {
-            // Для проектов
-            alert('Статус проекта изменён (в следующих версиях)');
-        } else if (type === 'task') {
-            alert('Статус задачи изменён');
-        }
-    }
-</script>
 </body>
-</html> 
+</html>
 
 
 
