@@ -1,4 +1,4 @@
-!DOCTYPE html>
+
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -128,8 +128,20 @@ cument.getElementById("projects-list");
 
         showSection('clients');
     </script>
+    <script>
+    // Добавь это в конец скрипта
+
+    function toggleStatus(i, type) {
+        if (type === 'project') {
+            // Для проектов
+            alert('Статус проекта изменён (в следующих версиях)');
+        } else if (type === 'task') {
+            alert('Статус задачи изменён');
+        }
+    }
+</script>
 </body>
-</html> do
+</html> 
 
 
 
